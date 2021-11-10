@@ -15,9 +15,8 @@ ifdef::backend-html5[]
 //toc::[]
 
 ## Class Diagram
-
 plantuml::plantuml/cld.puml[]
 
-
-## Short Description
-
+## Kurze Beschreibung
+Das Programm ist dazu da um Busse und deren Gefahrenen strecken anzuzeigen.
+Mann soll auch dadurch Berechnen können wie viele eine Fahrt kosten würde.

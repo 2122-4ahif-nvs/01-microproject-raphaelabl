@@ -27,8 +27,8 @@ class Haltestelle{
     int: plz
 }
 
-Strecke -l-> Bus
-Strecke --> "..*" Haltestelle : hält
+Strecke "*" -l-> "*" Bus : > fährt
+Strecke "1" --> "*" Haltestelle
 (Strecke, Bus) .. BusStrecke
 
 @enduml
