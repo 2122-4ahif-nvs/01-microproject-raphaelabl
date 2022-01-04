@@ -1,0 +1,84 @@
+package at.htl.entity;
+
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
+
+@Entity
+@NamedQuery(
+        name = "Station.findByLineName",
+        query = "Select s from Station s where s.line.name = :NAME"
+)
+@Table(name = "LL_STATION")
+public class Station {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Line line;
+
+    @ManyToOne
+    private Location location;
+
+    @OneToOne
+    private Station prevStation;
+
+    //region constructors
+
+    public Station() {
+    }
+
+    public Station(Line line, Location location, Station prevStation) {
+        this.line = line;
+        this.location = location;
+        this.prevStation = prevStation;
+    }
+
+    //endregion
+
+    //region getter and setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Line getLine() {
+        return line;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Station getPrevStation() {
+        return prevStation;
+    }
+
+    public void setPrevLocation(Station station) {
+        this.prevStation = station;
+    }
+    //endregion
+
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Linie %s - Station %s (vorherige Station: %s)",
+                line.getName(),
+                location.getName(),
+                (prevStation==null)?"n/a":prevStation.getLocation().getName()
+        );
+    }
+}

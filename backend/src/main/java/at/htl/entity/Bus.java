@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Bus {
@@ -15,8 +16,10 @@ public class Bus {
 
     int seat;
 
+    @NotBlank(message="Brand may not be blank")
     String brand;
 
+    @NotBlank(message="Type may not be blank")
     String type;
 
     // region constructors

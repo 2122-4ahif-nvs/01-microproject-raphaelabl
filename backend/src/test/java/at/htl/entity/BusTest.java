@@ -5,8 +5,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +21,6 @@ class BusTest {
         Bus newBus = new Bus(50, "Merceds", "Tourismo");
         Bus inserted = busRepository.save(newBus);
         assertThat(inserted.seat).isEqualTo(newBus.seat);
-
     }
+
 }
