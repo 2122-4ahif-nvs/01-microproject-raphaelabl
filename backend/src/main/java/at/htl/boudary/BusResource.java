@@ -38,9 +38,7 @@ public class BusResource {
 
         Bus b = busRepository.findById((long) id);
 
-        LOG.info("Hier ------------- \n" + b);
-
-        return bus.data(b);
+        return bus.data("bus", b);
 
     }
 

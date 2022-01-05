@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
-import java.util.Set;
 import javax.validation.Validator;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -73,6 +73,7 @@ public class ValidationTest {
         Location location = new Location("Himmelweg");
 
         Set<ConstraintViolation<Location>> violations = validator.validate(location);
+
         if(violations.isEmpty()){
             locationRepo.save(location);
             assertThat(true);

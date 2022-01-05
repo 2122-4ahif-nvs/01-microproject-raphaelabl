@@ -1,0 +1,111 @@
+= Validation, Qute, Grpc
+Raphael Ablinger
+1.0.0, 2022-01-05
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+
+## Validation
+
+### Warum benötige ich das?
+Es ist dafür zuständig um einzelne Felder in einem Programm überprüfen zu können. Die Fehler
+werden in einer List gespeichert mit der man verschiedenste Sachen überprüfen kann.
+
+### Im Code
+
+[source,java]
+----
+    @NotBlank(message="Brand may not be blank") <1>
+    public String brand;
+
+    @NotBlank(message="Type may not be blank")
+    public String type;
+----
+<.> Wenn der String null ist gibt es eine ConstraintViolation die man dan einfangen kann
+
+[source,java]
+----
+    Set<ConstraintViolation<Location>> violations = validator.validate(location); <.>
+
+    if(violations.isEmpty()) <.>
+
+    if(violations.size() == 1)
+
+----
+
+<.> In diesem Set werden alle Violations eingefangen
+<.> Beispiel für eine Überprüfung
+
+## Qute
+### Warum benötige ich das?
+Man benötigt es um schnell webpages zu machen die man mit daten vom Java-Project befüllen kann
+
+### Im Code
+
+[source, java]
+.Bus Klasse
+----
+public class Bus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long busId;
+
+    public int seat;
+
+    public String brand;
+
+    public String type;
+
+}
+----
+
+
+[source, html]
+.html
+----
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{bus.brand}</title>
+</head>
+    <body>
+        <h1>BusId: {bus.busId}</h1>
+
+        <div>Brand: {bus.brand}</div>
+        <div>Type: {bus.type}</div>
+        <div>Seats: {bus.seat}</div>
+    </body>
+</html>
+----
+{bus.busId} muss gleich wie in der Klasse heißen und werden dann in ins Html eingetragen
+
+[source, java]
+----
+    @Inject
+    Template bus; <.>
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance get(@PathParam("id") int id){
+
+        Bus b = busRepository.findById((long) id);
+
+        return bus.data("bus", b); <.>
+
+    }
+----
+<.> Template implementieren
+<.> "bus" muss gleich heißen wie das HTML File
+
+## Grpc
+
+### Was ist Grpc
+Mit GRPC ist es möglich viel kleinere Datenmengen zu senden und dadurch eine
+bessere Performance zu erreichen
+
