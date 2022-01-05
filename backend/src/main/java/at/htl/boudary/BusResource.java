@@ -1,8 +1,10 @@
 package at.htl.boudary;
 
 import at.htl.control.BusRepository;
+import at.htl.entity.Bus;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import org.jboss.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -16,6 +18,9 @@ public class BusResource {
 
     @Inject
     BusRepository busRepository;
+
+    @Inject
+    Logger LOG;
 
 //    @CheckedTemplate
 //    public static class Templates{
@@ -31,7 +36,11 @@ public class BusResource {
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get(@PathParam("id") int id){
 
-        return bus.data("bus", busRepository.findById(Long.parseLong(String.valueOf(id))));
+        Bus b = busRepository.findById((long) id);
+
+        LOG.info("Hier ------------- \n" + b);
+
+        return bus.data(b);
 
     }
 
