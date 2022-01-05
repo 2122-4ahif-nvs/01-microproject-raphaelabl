@@ -1,6 +1,5 @@
 package at.htl.entity;
 
-import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,15 +11,15 @@ public class Bus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BusId;
+    public Long busId;
 
-    int seat;
+    public int seat;
 
     @NotBlank(message="Brand may not be blank")
-    String brand;
+    public String brand;
 
     @NotBlank(message="Type may not be blank")
-    String type;
+    public String type;
 
     // region constructors
     public Bus(int seat, String brand, String type) {
@@ -36,11 +35,11 @@ public class Bus {
     //region getter setter
 
     public long getBusId() {
-        return BusId;
+        return busId;
     }
 
     public void setBusId(long busId) {
-        BusId = busId;
+        busId = busId;
     }
 
     public int getSeat() {
@@ -72,7 +71,7 @@ public class Bus {
     @Override
     public String toString() {
         return "Bus{" +
-                "BusId=" + BusId +
+                "BusId=" + busId +
                 ", seat=" + seat +
                 ", brand='" + brand + '\'' +
                 ", type='" + type + '\'' +
