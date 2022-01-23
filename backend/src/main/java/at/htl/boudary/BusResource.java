@@ -6,6 +6,7 @@ import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import org.jboss.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -32,6 +33,7 @@ public class BusResource {
 
 
     @GET
+    @RolesAllowed("ADMIN")
     @Path("/{id}")
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get(@PathParam("id") int id){
@@ -39,7 +41,6 @@ public class BusResource {
         Bus b = busRepository.findById((long) id);
 
         return bus.data("bus", b);
-
     }
 
 }

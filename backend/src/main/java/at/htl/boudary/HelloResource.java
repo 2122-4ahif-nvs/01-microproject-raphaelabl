@@ -3,6 +3,7 @@ package at.htl.boudary;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +19,7 @@ public class HelloResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    @RolesAllowed("RAPHAEL")
     public TemplateInstance get(@QueryParam("name") String name){
         return hello.data("name", name);
     }
