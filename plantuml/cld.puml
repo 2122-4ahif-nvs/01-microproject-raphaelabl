@@ -1,0 +1,34 @@
+@startuml
+
+left to right direction
+
+class Bus{
+    long: busId
+    int: sitze
+    String: marke
+    String: modell
+}
+
+class BusStrecke{
+    Bus: bus
+    Strecke: strecke
+}
+
+class Strecke{
+    Haltestelle: von
+    Haltestelle: bis
+    int: preis
+}
+
+class Haltestelle{
+    long: haltestellenId
+    String: straße
+    String: ort
+    int: plz
+}
+
+Strecke "*" -l-> "*" Bus : > fährt
+Strecke "1" --> "*" Haltestelle
+(Strecke, Bus) .. BusStrecke
+
+@enduml
